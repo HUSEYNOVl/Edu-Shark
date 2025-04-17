@@ -1,0 +1,103 @@
+<!-- START: achievements.html | Badge Display Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Achievements – EduSpark</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+    }
+    header {
+      background-color: #1e1e1e;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    .badge {
+      background: gold;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 10px;
+      max-width: 400px;
+      text-align: center;
+      font-weight: bold;
+      color: #000;
+    }
+    .no-badges {
+      text-align: center;
+      font-size: 18px;
+      color: #555;
+    }
+  </style>
+  <script>
+    if (!localStorage.getItem("loggedIn")) {
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>🏆 Your Achievements</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="course-list.html">Courses</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="forum.html">Forum</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Earned Badges</h2>
+    <div id="badges"></div>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    const badges = document.getElementById("badges");
+
+    const courseNames = ["HTML Basics", "CSS Design", "JavaScript Fun"];
+    const scoreList = user.quizScores || [];
+    let earned = 0;
+
+    scoreList.forEach((score, index) => {
+      if (score >= 80) {
+        const badge = document.createElement("div");
+        badge.className = "badge";
+        badge.textContent = `🏅 Completed ${courseNames[index]} with ${score}%`;
+        badges.appendChild(badge);
+        earned++;
+      }
+    });
+
+    if (earned === 0) {
+      badges.innerHTML = '<p class="no-badges">Take quizzes to earn badges! ✨</p>';
+    }
+  </script>
+</body>
+</html>
+<!-- END: achievements.html -->

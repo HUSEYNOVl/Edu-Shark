@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Quizzes – EduSpark</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+    }
+    header {
+      background-color: #1e1e1e;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .quiz-container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .quiz-section {
+      margin-bottom: 40px;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    .question {
+      font-weight: bold;
+      margin: 10px 0 5px;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .submit-btn {
+      background: #1e1e1e;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .submit-btn:hover {
+      background: black;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 10px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🧠 All Quizzes</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="course-list.html">Courses</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <div class="quiz-container">
+    <div id="all-quizzes"></div>
+  </div>
+
+  <!-- 🎉 Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- 📄 jsPDF (Certificate Generator) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- ✅ Quiz Logic -->
+  <script src="js/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!-- START: login.html | Modern Design & Persistent Login (Fully Fixed Navigation) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login – EduSpark</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .auth-container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #1e1e1e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #000;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      flex: 1;
+      margin: 0 5px;
+      background: #f1f1f1;
+      color: #333;
+    }
+
+    .tabs button.active {
+      background: #1e1e1e;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    #login-message, #register-message {
+      text-align: center;
+      margin-top: 10px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <h1>🔐 EduSpark Login</h1>
+    <div class="tabs">
+      <button id="loginTab" class="active" onclick="showTab('login')">Login</button>
+      <button id="registerTab" onclick="showTab('register')">Register</button>
+    </div>
+
+    <div id="login" class="tab-content active">
+      <input type="text" id="login-username" placeholder="Username">
+      <input type="password" id="login-password" placeholder="Password">
+      <button onclick="login()">Log In</button>
+      <p id="login-message"></p>
+    </div>
+
+    <div id="register" class="tab-content">
+      <input type="text" id="reg-username" placeholder="Username">
+      <input type="password" id="reg-password" placeholder="Password">
+      <input type="email" id="reg-email" placeholder="Email">
+      <button onclick="register()">Register</button>
+      <p id="register-message"></p>
+    </div>
+  </div>
+
+  <script>
+    // Prevent returning users from seeing this page
+    if (localStorage.getItem("loggedIn") === "true") {
+      window.location.replace("index.html");
+    }
+
+    function showTab(tab) {
+      document.getElementById("login").classList.remove("active");
+      document.getElementById("register").classList.remove("active");
+      document.getElementById("loginTab").classList.remove("active");
+      document.getElementById("registerTab").classList.remove("active");
+      document.getElementById(tab).classList.add("active");
+      document.getElementById(tab + "Tab").classList.add("active");
+    }
+
+    function register() {
+      const username = document.getElementById("reg-username").value;
+      const password = document.getElementById("reg-password").value;
+      const email = document.getElementById("reg-email").value;
+
+      if (!username || !password || !email) {
+        document.getElementById("register-message").innerText = "Please fill all fields.";
+        return;
+      }
+
+      const user = {
+        username,
+        password,
+        email,
+        joined: new Date().toLocaleDateString(),
+        completedCourses: [],
+        quizScores: []
+      };
+
+      localStorage.setItem("user", JSON.stringify(user));
+      document.getElementById("register-message").innerText = "✅ Registered successfully! You can now log in.";
+    }
+
+    function login() {
+      const username = document.getElementById("login-username").value;
+      const password = document.getElementById("login-password").value;
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      if (user && user.username === username && user.password === password) {
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        window.location.replace("index.html");
+      } else {
+        document.getElementById("login-message").innerText = "❌ Invalid login.";
+      }
+    }
+  </script>
+</body>
+</html>
+<!-- END: login.html -->

@@ -1,0 +1,100 @@
+<!-- START: index.html | Home Page Without "Thanks" Image -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduSpark - Home</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+    }
+
+    header {
+      background: #1e1e1e;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: bold;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero a {
+      background: #1e1e1e;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .hero a:hover {
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📘 EduSpark</h1>
+    <nav>
+      <a href="course-list.html">Courses</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="forum.html">Forum</a>
+      <a href="login.html" id="auth-link">Login</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Learn smarter, not harder 🎯</h2>
+    <p>Explore interactive lessons, take quizzes, earn achievements,<br> and grow your skills the fun way!</p>
+    <a href="course-list.html">Start Learning</a>
+  </section>
+
+  <script>
+    const loggedIn = localStorage.getItem("loggedIn") === "true";
+    const authLink = document.getElementById("auth-link");
+
+    if (loggedIn) {
+      authLink.innerText = "Logout";
+      authLink.href = "#";
+      authLink.onclick = () => {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("currentUser");
+        window.location.href = "login.html";
+      };
+    }
+  </script>
+</body>
+</html>
+<!-- END: index.html -->

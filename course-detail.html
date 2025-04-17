@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Course Details – EduSpark</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+    }
+    header {
+      background-color: #1e1e1e;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      font-size: 24px;
+    }
+    nav a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .course-video {
+      width: 100%;
+      height: 300px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 20px;
+    }
+    .description {
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+    .quiz-btn {
+      background-color: #1e1e1e;
+      color: white;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .quiz-btn:hover {
+      background-color: black;
+    }
+    @media (max-width: 768px) {
+      .container {
+        margin: 15px;
+      }
+      .course-video {
+        height: 200px;
+      }
+    }
+  </style>
+  <script>
+    if (!localStorage.getItem("loggedIn")) {
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>📘 EduSpark Course</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="course-list.html">Courses</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2 id="course-title">Course Title</h2>
+    <iframe class="course-video" id="video-frame" src="" allowfullscreen></iframe>
+    <div class="description" id="course-desc">Course description will go here.</div>
+    <button class="quiz-btn" id="start-quiz">Start Quiz</button>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseParam = urlParams.get("course");
+
+    const courses = {
+      html: {
+        title: "HTML Basics",
+        video: "https://www.youtube.com/embed/UB1O30fR-EE", // Replace with yours
+        description: "Learn the fundamentals of HTML, including elements, tags, and structure."
+      },
+      css: {
+        title: "CSS Design",
+        video: "https://www.youtube.com/embed/yfoY53QXEnI", // Replace with yours
+        description: "Master the art of styling your websites using CSS – layout, colors, and effects."
+      },
+      js: {
+        title: "JavaScript Fun",
+        video: "https://www.youtube.com/embed/hdI2bqOjy3c", // Replace with yours
+        description: "Understand JavaScript basics like variables, loops, events, and DOM manipulation."
+      }
+    };
+
+    const course = courses[courseParam];
+
+    if (course) {
+      document.getElementById("course-title").innerText = course.title;
+      document.getElementById("video-frame").src = course.video;
+      document.getElementById("course-desc").innerText = course.description;
+
+      document.getElementById("start-quiz").onclick = function () {
+        window.location.href = `quiz.html?course=${courseParam}`;
+      };
+    } else {
+      document.querySelector(".container").innerHTML = "<h2>Course not found.</h2>";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!-- START: course-list.html | Dynamic Quiz Score Integration + Links -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduSpark - Courses</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      animation: bg-fade 10s ease infinite alternate;
+    }
+    @keyframes bg-fade {
+      0% { background: linear-gradient(135deg, #FFDEE9, #B5FFFC); }
+      100% { background: linear-gradient(135deg, #C2FFD8, #465EFB); }
+    }
+    header {
+      background: #1e1e1e;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: bold;
+    }
+    .course-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 3rem 2rem;
+      gap: 2rem;
+    }
+    .course-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      padding: 2rem;
+      width: 240px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .course-card:hover {
+      transform: translateY(-10px) rotate(-1deg);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    .course-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+    .progress-bar {
+      background: #eee;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .progress {
+      height: 10px;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      width: 0%;
+    }
+    .achievement {
+      font-size: 1.5rem;
+      margin-top: 0.5rem;
+      color: gold;
+    }
+    footer {
+      text-align: center;
+      color: #222;
+      margin-top: auto;
+      padding: 1rem;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.6);
+      position: relative;
+    }
+    .confetti {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s ease-in-out infinite;
+      font-size: 1.5rem;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 EduSpark Courses</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="forum.html">Forum</a>
+      <a href="profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <section class="course-section">
+    <a href="course-detail.html?course=HTML" class="course-card">
+      <img src="images/html.png" alt="HTML Course">
+      <h3>HTML Basics</h3>
+      <div class="progress-bar"><div class="progress" id="progress-html"></div></div>
+      <div class="achievement" id="trophy-html"></div>
+    </a>
+    <a href="course-detail.html?course=CSS" class="course-card">
+      <img src="images/css.png" alt="CSS Course">
+      <h3>CSS Design</h3>
+      <div class="progress-bar"><div class="progress" id="progress-css"></div></div>
+      <div class="achievement" id="trophy-css"></div>
+    </a>
+    <a href="course-detail.html?course=JS" class="course-card">
+      <img src="images/js.png" alt="JavaScript Course">
+      <h3>JavaScript Fun</h3>
+      <div class="progress-bar"><div class="progress" id="progress-js"></div></div>
+      <div class="achievement" id="trophy-js"></div>
+    </a>
+  </section>
+
+  <footer>
+    🚀 Ready to dive into coding adventures with EduSpark!
+    <div class="confetti">🎉🎊🎉</div>
+  </footer>
+
+  <script>
+    const loggedIn = localStorage.getItem("loggedIn") === "true";
+    if (!loggedIn) window.location.href = "login.html";
+
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (user && user.quizScores) {
+      const updateProgress = (courseId, score) => {
+        const bar = document.getElementById("progress-" + courseId);
+        const trophy = document.getElementById("trophy-" + courseId);
+        if (bar) bar.style.width = score + "%";
+        if (trophy && score >= 80) trophy.textContent = "🏆";
+      };
+      updateProgress("html", user.quizScores[0] || 0);
+      updateProgress("css", user.quizScores[1] || 0);
+      updateProgress("js", user.quizScores[2] || 0);
+    }
+  </script>
+</body>
+</html>
+<!-- END: course-list.html -->

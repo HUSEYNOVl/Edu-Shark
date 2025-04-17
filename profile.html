@@ -1,0 +1,142 @@
+<!-- START: profile.html | Responsive & Animated Profile Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile – EduSpark</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      background-color: #1e1e1e;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #f8b500;
+    }
+
+    .profile-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      animation: fadeIn 0.8s ease;
+      text-align: center;
+    }
+
+    .profile-container p {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+
+    .profile-container span {
+      font-weight: bold;
+    }
+
+    .profile-container button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #1e1e1e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .profile-container button:hover {
+      background-color: #000;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .profile-container {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
+  <script>
+    const isLoggedIn = localStorage.getItem("loggedIn");
+    if (!isLoggedIn) window.location.href = "login.html";
+  </script>
+</head>
+<body>
+  <header>
+    <h1>👤 Your Profile</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="course-list.html">Courses</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="forum.html">Forum</a>
+    </nav>
+  </header>
+
+  <div class="profile-container">
+    <h2 id="greeting">Welcome!</h2>
+    <p><span>Email:</span> <span id="email"></span></p>
+    <p><span>Joined:</span> <span id="joined"></span></p>
+    <p><span>Completed Courses:</span> <span id="courses"></span></p>
+    <p><span>Quiz Scores:</span> <span id="scores"></span></p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("user"));
+    document.getElementById("greeting").innerText = `Welcome, ${user.username}!`;
+    document.getElementById("email").innerText = user.email;
+    document.getElementById("joined").innerText = user.joined;
+    document.getElementById("courses").innerText = user.completedCourses.join(", ") || "None";
+    document.getElementById("scores").innerText = user.quizScores.join(" | ") || "None";
+
+    function logout() {
+      localStorage.removeItem("loggedIn");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
+<!-- END: profile.html -->
